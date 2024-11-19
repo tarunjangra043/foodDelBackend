@@ -18,11 +18,13 @@ const loginUser = async (req, res) => {
     console.log(isMatch);
 
     if (!isMatch) {
-      return res.json({ success: false, message: "Invalid Credentials" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid Credentials" });
     }
 
     const token = createToken(user._id);
-    res.json({ success: true, token });
+    return res.json({ success: true, token });
   } catch (e) {
     console.log(e);
     return res.json({ success: false, message: "Error" });
@@ -70,13 +72,13 @@ const registerUser = async (req, res) => {
       email,
       password: hashedPassword,
     });
-
     const user = await newUser.save();
+
     const token = createToken(user._id);
     res.json({ success: true, token });
   } catch (e) {
     console.log(e);
-    res.json({ success: false, message: "Error" });
+    res.status(500).json({ success: false, message: "Error" });
   }
 };
 
