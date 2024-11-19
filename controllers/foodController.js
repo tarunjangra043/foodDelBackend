@@ -1,5 +1,5 @@
 const fs = require("fs");
-const foodModel = require("../models/foodModel");
+const { foodModel } = require("../models/foodModel");
 
 const addFood = async (req, res) => {
   let image_filename = `${req.file.filename}`;

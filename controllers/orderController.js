@@ -1,8 +1,7 @@
 const { orderModel } = require("../models/orderModel");
 const { userModel } = require("../models/userModel");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // Correct initialization
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-// placing user order for frontend
 const placeOrder = async (req, res) => {
   const frontend_url = "https://food-delivery-psi-six.vercel.app";
 

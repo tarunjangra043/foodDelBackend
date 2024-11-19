@@ -1,4 +1,4 @@
-const userModel = require("../models/userModel");
+const { userModel } = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
@@ -32,12 +32,13 @@ const loginUser = async (req, res) => {
 };
 
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET);
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
 
 // register user
 const registerUser = async (req, res) => {
   const { name, password, email } = req.body;
+  console.log(name);
 
   try {
     // checking is user already exists

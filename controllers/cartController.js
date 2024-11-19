@@ -1,4 +1,4 @@
-const userModel = require("../models/userModel");
+const { userModel } = require("../models/userModel");
 
 // add items to user cart
 const addToCart = async (req, res) => {
