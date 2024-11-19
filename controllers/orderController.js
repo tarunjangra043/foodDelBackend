@@ -2,7 +2,7 @@ const { orderModel } = require("../models/orderModel");
 const { userModel } = require("../models/userModel");
 const stripe = require("stripe");
 
-const Stripe = new stripe(process.env.STRIPE_SECRET_KEY);
+const Stripe = stripe(process.env.STRIPE_SECRET_KEY); // Correct initialization
 
 // placing user order for frontend
 const placeOrder = async (req, res) => {
@@ -29,10 +29,11 @@ const placeOrder = async (req, res) => {
       quantity: item.quantity,
     }));
 
+    // Add delivery charges
     line_items.push({
       price_data: {
         currency: "inr",
-        price_data: {
+        product_data: {
           name: "Delivery Charges",
         },
         unit_amount: 2 * 100 * 80,
@@ -47,10 +48,10 @@ const placeOrder = async (req, res) => {
       cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder._id}`,
     });
 
-    res.json({ success: true, session_url });
+    res.json({ success: true, session_url: session.url }); // Corrected response
   } catch (err) {
     console.error(err);
-    res.json({ success: false, message: "Error" });
+    res.json({ success: false, message: "Error", error: err.message }); // Added error detail
   }
 };
 
