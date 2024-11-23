@@ -73,10 +73,15 @@ const verifyOrder = async (req, res) => {
 const userOrders = async (req, res) => {
   try {
     const orders = await orderModel.find({ userId: req.body.userId });
+    if (!orders) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No Orders found!" });
+    }
     res.json({ success: true, data: orders });
   } catch (e) {
-    console.error(e);
-    res.json({ success: false, message: "Error!" });
+    console.error("Error fetching user orders:", e);
+    res.status(500).json({ success: false, message: "Internal Server Error!" });
   }
 };
 

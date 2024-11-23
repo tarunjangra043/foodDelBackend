@@ -23,10 +23,10 @@ const loginUser = async (req, res) => {
     }
 
     const token = createToken(user._id);
-    return res.json({ success: true, token });
+    return res.status(200).json({ success: true, token });
   } catch (e) {
     console.log(e);
-    return res.json({ success: false, message: "Error" });
+    return res.status(500).json({ success: false, message: "Server Error" });
   }
 };
 
