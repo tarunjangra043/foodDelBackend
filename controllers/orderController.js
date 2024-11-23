@@ -3,7 +3,8 @@ const { userModel } = require("../models/userModel");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const placeOrder = async (req, res) => {
-  const frontend_url = "https://food-delivery-psi-six.vercel.app";
+  // const frontend_url = "https://food-delivery-psi-six.vercel.app";
+  const frontend_url = "https://localhost:5173";
 
   try {
     const newOrder = new orderModel({
@@ -79,6 +80,18 @@ const userOrders = async (req, res) => {
   }
 };
 
+//Listing orders for admin panel
+const listOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, data: orders });
+  } catch (e) {
+    console.error(e);
+    res.json({ success: false, message: "Error" });
+  }
+};
+
 exports.placeOrder = placeOrder;
 exports.verifyOrder = verifyOrder;
 exports.userOrders = userOrders;
+exports.listOrders = listOrders;
