@@ -23,7 +23,9 @@ const loginUser = async (req, res) => {
     }
 
     const token = createToken(user._id);
-    return res.status(200).json({ success: true, token });
+    return res
+      .status(200)
+      .json({ success: true, token, message: "Logged In! SuccessFull" });
   } catch (e) {
     console.log(e);
     return res.status(500).json({ success: false, message: "Server Error" });
@@ -51,7 +53,7 @@ const registerUser = async (req, res) => {
     if (!validator.isEmail(email)) {
       return res.json({
         success: false,
-        message: "Please enter a valid email",
+        message: "Please enter a valid email!",
       });
     }
 
