@@ -21,7 +21,7 @@ const corsOptions = {
 // MIDDLEWARE
 app.use(cors(corsOptions));
 app.use(express.json());
-dotenv.config({ path: ".env" });
+dotenv.config();
 
 // DB CONNECTION
 connectDB();
